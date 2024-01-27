@@ -2,7 +2,7 @@
 
 ## Setup
 
-Please register [ngrok](https://dashboard.ngrok.com/get-started/setup/macos) account and install ngrok on your device at the beggining.
+Please register [ngrok](https://dashboard.ngrok.com/get-started/setup/macos) account, install ngrok on your device and setup token at the beggining.
 
 1. copy files
 
@@ -10,7 +10,6 @@ You may need to fill in the parameters after copying.
 
 ```bash
 cp .env.example .env
-cp ngrok.example.yaml ngrok.yaml
 ```
 
 1. install dependencies
@@ -22,7 +21,13 @@ yarn install
 3. open one terminal for ngrok
 
 ```bash
+ngrok http 5173
+```
 
+4. open react application in another terminal
+
+```bash
+yarn dev
 ```
 
 

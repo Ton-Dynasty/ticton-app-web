@@ -1,13 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Homepage";
-import { useMainButton, useMiniApp } from "@tma.js/sdk-react";
+import { useInitData, useMainButton, useMiniApp } from "@tma.js/sdk-react";
 import { useEffect } from "react";
 import { HapticFeedback, postEvent } from "@tma.js/sdk";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import useAuthStore from "./store/auth";
 
 function App() {
   const miniApp = useMiniApp();
   const mb = useMainButton();
+  const initData = useInitData();
+  const { user, setAuth } = useAuthStore();
 
   const haptic = new HapticFeedback("6.3", postEvent);
 
@@ -25,10 +28,23 @@ function App() {
     mb.enable().show();
   });
 
+  useEffect(() => {
+    if (initData) {
+      setAuth({
+        auth_date: initData.authDate.getTime(),
+        query_id: initData.queryId,
+        user: initData.user,
+        hash: initData.hash,
+      });
+    }
+  }, [initData, setAuth]);
+
   return (
-    <TonConnectUIProvider manifestUrl="https://raw.githubusercontent.com/Ton-Dynasty/ticton-app-web/main/tonconnect-manifest.json">
+    <TonConnectUIProvider
+      manifestUrl={import.meta.env.VITE_TONCONNET_MANIFEST_URL}
+    >
       <div className="h-screen w-screen px-4">
-        <div className="text-white">dfsdsffsdfsd</div>
+        <div className="text-white">{JSON.stringify(user)}</div>
         <BrowserRouter>
           <Routes>
             <Route path="/" index element={<HomePage />} />

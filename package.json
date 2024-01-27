@@ -12,9 +12,11 @@
   "dependencies": {
     "@tma.js/sdk-react": "^1.1.2",
     "@tonconnect/ui-react": "^2.0.0",
+    "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3"
+    "react-router-dom": "^6.21.3",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
