@@ -6,11 +6,9 @@ const Req = axios.create({
 });
 
 Req.interceptors.request.use((config) => {
-  const { auth_date, query_id, user, hash } = useAuthStore.getState();
-  if (auth_date && query_id && user) {
-    config.headers.set("X-Auth-Date", auth_date);
-    config.headers.set("X-Query-ID", query_id);
-    config.headers.set("X-User", JSON.stringify(user));
+  const { initDataRaw, hash } = useAuthStore.getState();
+  if (initDataRaw) {
+    config.headers.set("Authorization", `tma ${initDataRaw}`);
     config.headers.set("X-Hash", hash);
   }
   return config;

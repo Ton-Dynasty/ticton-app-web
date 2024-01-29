@@ -1,11 +1,8 @@
 import { create } from "zustand";
-import { User } from "@tma.js/sdk";
 
-interface AuthStoreParams {
-  auth_date?: number; // unix timestamp
-  query_id?: string;
-  user?: User;
+export interface AuthStoreParams {
   hash?: string;
+  initDataRaw?: string;
 }
 
 interface AuthStore extends AuthStoreParams {
@@ -13,11 +10,9 @@ interface AuthStore extends AuthStoreParams {
 }
 
 const useAuthStore = create<AuthStore>((set) => ({
-  auth_date: undefined,
-  query_id: undefined,
-  user: undefined,
-  hash: undefined,
-  setAuth: (param: AuthStoreParams) => set(() => ({ ...param })),
+  setAuth: (state) => {
+    set({ ...state });
+  },
 }));
 
 export default useAuthStore;
